@@ -1,0 +1,19 @@
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum_Data_Testing_Tool.Form1.resources
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum_Data_Testing_Tool.Properties.Resources.resources
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\bin\Debug\Fulcrum Data Testing Tool.exe
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\bin\Debug\Fulcrum Data Testing Tool.pdb
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum Data Testing Tool.exe
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum Data Testing Tool.pdb
+c:\users\jawad.khan\documents\visual studio 2010\Projects\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\bin\Debug\Fulcrum Data Testing Tool.exe.config
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\bin\Debug\Fulcrum Data Testing Tool.exe.config
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum Data Testing Tool.exe
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum Data Testing Tool.pdb
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\bin\Debug\Fulcrum Data Testing Tool.exe
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\bin\Debug\Fulcrum Data Testing Tool.pdb
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum_Data_Testing_Tool.Form1.resources
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum_Data_Testing_Tool.Properties.Resources.resources
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum Data Testing Tool.csproj.GenerateResource.Cache
+C:\VS_Workgroup\Fulcrum Data Testing Tool\Fulcrum Data Testing Tool\obj\x86\Debug\Fulcrum Data Testing Tool.csprojResolveAssemblyReference.cache
