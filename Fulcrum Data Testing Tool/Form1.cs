@@ -139,6 +139,7 @@ namespace Fulcrum_Data_Testing_Tool
                 {
                     row["Result"] = Tools.ResultText.Failed;
                 }
+
                 else
                 {
                     row["Result"] = Tools.ResultText.None;

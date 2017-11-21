@@ -134,9 +134,19 @@ namespace Fulcrum_Data_Testing_Tool
                     string data = string.Empty;
                     string query = XMLOperation.TransformQuery(r[0]["IF_DATA_MAPPING"].ToString(), xDoc, File);
                     //data = r[0]["IF_DATA_MAPPING"].ToString();
-                    data = DBQuery.ExecuteQuery(query);
 
-                    row["CSDP_Data"] = data;
+
+                    try
+                    {
+                        data = DBQuery.ExecuteQuery(query);
+                        row["CSDP_Data"] = data;
+
+                    }
+                    catch (Exception)
+                    {
+                        row["CSDP_Data"] = Tools.ResultText.SQLExecutionError.ToString();
+                    }
+                    
                 }
                 else
                     row["CSDP_Data"] = Tools.ResultText.MappingNotFound.ToString();

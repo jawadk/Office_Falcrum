@@ -12,7 +12,8 @@ namespace Fulcrum_Data_Testing_Tool
             Passed,
             Failed,
             MappingNotFound,
-            None
+            None,
+            SQLExecutionError
         }
     }
 }
