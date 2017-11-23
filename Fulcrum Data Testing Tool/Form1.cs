@@ -30,14 +30,11 @@ namespace Fulcrum_Data_Testing_Tool
             xDoc.Load(txtb_FilePath.Text);
             MessageID = XMLOperation.GetNodValue(xDoc, "MessageID", txtb_FilePath.Text);
 
-
-            
-
             DBQuery.CheckMessageIDExist(MessageID);
 
-            XMLOperation XML_obj = new XMLOperation();            
+            XMLOperation XML_obj = new XMLOperation();
             DataSet XML_DS = XML_obj.ReadXml(txtb_FilePath.Text);
-                        
+
             DataTable DataTable1 = new DataTable();
             DataTable FilledDataHeader = DBQuery.EmptyDataTableHeaders();
 
@@ -70,7 +67,7 @@ namespace Fulcrum_Data_Testing_Tool
             OpenFileDialog fdlg = new OpenFileDialog();
             //fdlg.Title = "C# Corner Open File Dialog";
             fdlg.InitialDirectory = @"D:\";
-            fdlg.Filter = "All files (*.*)|*.*|All files (*.*)|*.*";
+            fdlg.Filter = "XML Files (*.xml)|*.xml";
             fdlg.FilterIndex = 2;
             fdlg.RestoreDirectory = true;
             if (fdlg.ShowDialog() == DialogResult.OK)
@@ -91,109 +88,77 @@ namespace Fulcrum_Data_Testing_Tool
             MessageBox.Show("Data loaded in Datagrid");
         }
 
-        private string[] getParameterValues(DataTable dt)
+        private void btn_Validate_Click(object sender, EventArgs e)
         {
-            return null;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //GETTING PROPERTIES DATA FROM XML
-            MessageID = XMLOperation.GetNodValue(xDoc, "MessageID", txtb_FilePath.Text);
-            string interfaceName = XMLOperation.InferfaceName(txtb_FilePath.Text);
-
-
-            label_InferfaceData.Text = interfaceName;
-            label_MessageData.Text = MessageID;
-
-            DataTable CSDPTableSchema = DBQuery.EmptyDataTableHeaders();
-
-            XMLOperation xmlHandler = new XMLOperation();
-            DataSet xmlDataSet = xmlHandler.ReadXml(txtb_FilePath.Text);
-            DataTable XMLData = new DataTable();
-            XMLData = xmlHandler.GetDataFromXmlDataSet(interfaceName, MessageID, xmlDataSet, CSDPTableSchema);
-
-
-            //Quries from database
-            DataTable InterfaceMapping = new DataTable();
-            InterfaceMapping = DBQuery.GetMappingQueries(interfaceName);
-
-            
-            DataTable FinalTable = XMLOperation.GenerateData(XMLData, InterfaceMapping, xDoc, txtb_FilePath.Text);
-
-            FinalTable.Columns.Add("Result");
-
-            foreach (DataRow row in FinalTable.Rows)
+            if (XMLOperation.FileValidation(txtb_FilePath.Text) == true)
             {
-                if (row["IF_DATA"].ToString()  == row["CSDP_Data"].ToString())
-                {   
-                    row["Result"] = Tools.ResultText.Passed;
-                    
+                string InterfaceName = XMLOperation.InferfaceName(txtb_FilePath.Text);
+                xDoc = new XmlDocument();
+                xDoc.Load(txtb_FilePath.Text);
+                MessageID = XMLOperation.GetNodValue(xDoc, "MessageID", txtb_FilePath.Text);
 
-                }
-                else if (row["CSDP_Data"].ToString() == Tools.ResultText.MappingNotFound.ToString())
+                DBQuery.CheckMessageIDExist(MessageID);
+
+                XMLOperation XML_obj = new XMLOperation();
+                DataSet XML_DS = XML_obj.ReadXml(txtb_FilePath.Text);
+
+                DataTable DataTable1 = new DataTable();
+                DataTable FilledDataHeader = DBQuery.EmptyDataTableHeaders();
+
+                DataTable1 = XML_obj.GetDataFromXmlDataSet(InterfaceName, MessageID, XML_DS, FilledDataHeader);
+                DBQuery.InsertInterfaceData(DataTable1);
+                MessageBox.Show("XML file data has been Read and inserted successfully in Tool Database.");
+
+                label_InferfaceData.Text = InterfaceName;
+                label_MessageData.Text = MessageID;
+
+
+                //GETTING PROPERTIES DATA FROM XML
+
+                DataTable CSDPTableSchema = DBQuery.EmptyDataTableHeaders();
+
+                XMLOperation xmlHandler = new XMLOperation();
+                DataSet xmlDataSet = xmlHandler.ReadXml(txtb_FilePath.Text);
+                DataTable XMLData = new DataTable();
+                XMLData = xmlHandler.GetDataFromXmlDataSet(InterfaceName, MessageID, xmlDataSet, CSDPTableSchema);
+
+
+                //Quries from database
+                DataTable InterfaceMapping = new DataTable();
+                InterfaceMapping = DBQuery.GetMappingQueries(InterfaceName);
+
+
+                DataTable FinalTable = XMLOperation.GenerateData(XMLData, InterfaceMapping, xDoc, txtb_FilePath.Text);
+
+                FinalTable.Columns.Add("Result");
+
+                foreach (DataRow row in FinalTable.Rows)
                 {
-                    row["Result"] = Tools.ResultText.MappingNotFound;
-                }
-                else if (row["IF_DATA"].ToString() != row["CSDP_Data"].ToString())
-                {
-                    row["Result"] = Tools.ResultText.Failed;
+                    if (row["IF_DATA"].ToString() == row["CSDP_Data"].ToString())
+                    {
+                        row["Result"] = Tools.ResultText.Passed;
+                    }
+                    else if (row["CSDP_Data"].ToString() == Tools.ResultText.MappingNotFound.ToString())
+                    {
+                        row["Result"] = Tools.ResultText.MappingNotFound;
+                    }
+                    else if (row["IF_DATA"].ToString() != row["CSDP_Data"].ToString())
+                    {
+                        row["Result"] = Tools.ResultText.Failed;
+                    }
+                    else
+                    {
+                        row["Result"] = Tools.ResultText.None;
+                    }
                 }
 
-                else
-                {
-                    row["Result"] = Tools.ResultText.None;
-                }
-
-            
+                dataGridView1.DataSource = FinalTable.DefaultView;
             }
 
-            dataGridView1.DataSource = FinalTable.DefaultView;
-
-            
-
-
-
-
-
-
-
-
-
-
-            //List<string> CompleteQueries = new List<string>();
-
-            //foreach (DataRow row in InterfaceMapping.Rows)
-            //{
-            //    string transformedQuery = XMLOperation.TransformQuery(row[1].ToString(), xDoc, txtb_FilePath.Text);
-            //    CompleteQueries.Add(transformedQuery);
-            //}
-
-            //List<string> ExecutedQueryData = new List<string>();
-
-            
-
-            //XML DATA
-
-            
-
-
-            
-
-            //string transformedQuery = XMLOperation.TransformQuery("SELECT SKU FROM SKU WHERE SKU = @ProductCode AND COMPANY = @CompanyCode", xDoc, txtb_FilePath.Text);
-           
-
-            //List<string> Mappingquery = new List<string>();
-            //DataTable dt = new DataTable();
-
-            //dt = DBQuery.GetMappingsWithValues(XMLOperation.InferfaceName(txtb_FilePath.Text), MessageID);
-
-            //dt.Columns[0][i];
-
-           
-
-            
-            
+            else
+            {
+                MessageBox.Show("Please upload XML file");
+            }
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -213,6 +178,12 @@ namespace Fulcrum_Data_Testing_Tool
                 dataGridView1.Rows[e.RowIndex].Cells["Result"].Style.BackColor = Color.LightYellow;
                 dataGridView1.Rows[e.RowIndex].Cells["Result"].Style.ForeColor = Color.Black;
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ReadData.Hide();
+            btn_LoadData.Hide();
         }
     }
 }

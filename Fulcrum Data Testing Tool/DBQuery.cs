@@ -36,7 +36,7 @@ namespace Fulcrum_Data_Testing_Tool
 
             SqlDataAdapter DataAdapt = new SqlDataAdapter();
 
-            
+
 
             for (int i = 0; i < Datatable.Rows.Count; i++)
             {
@@ -44,23 +44,25 @@ namespace Fulcrum_Data_Testing_Tool
                 //Datatable.Rows[i].ItemArray[1].ToString(); //InterFaceName
                 //Datatable.Rows[i].ItemArray[2].ToString(); //TagNAme
                 //Datatable.Rows[i].ItemArray[3].ToString(); //Inferface
-                
-                string values = string.Empty;
-                
-                foreach(string value in Datatable.Rows[i].ItemArray){
 
-                    values += "'"+value+"',";
+                string values = string.Empty;
+
+                foreach (string value in Datatable.Rows[i].ItemArray)
+                {
+
+                    values += "'" + value + "',";
                 }
 
-                values = values.Substring(0,values.Length-1);
+                values = values.Substring(0, values.Length - 1);
                 using (SqlConnection conn = new SqlConnection(AppConnection.AppConnectStringFulcrum()))
                 {
-                    if (conn.State == ConnectionState.Closed) {
+                    if (conn.State == ConnectionState.Closed)
+                    {
                         conn.Open();
                     }
                     DataAdapt.InsertCommand = new SqlCommand("INSERT INTO dbo.Fulcrum_XML_Data (MESSAGEID, IF_NAME, IF_TEXT, IF_DATA) VALUES (" + values + ")", conn);
                     DataAdapt.InsertCommand.ExecuteNonQuery();
-                }                
+                }
             }
             //AppConnection appcon = new AppConnection();
             //appcon.SQLConnectionOpen();
@@ -72,7 +74,7 @@ namespace Fulcrum_Data_Testing_Tool
         public static DataTable GetDatafromDataBase()
         {
             DataTable FilledData = new DataTable();
-            
+
 
             using (SqlConnection con = new SqlConnection(AppConnection.AppConnectStringFulcrum()))
             {
@@ -80,7 +82,7 @@ namespace Fulcrum_Data_Testing_Tool
                 {
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
-                    FilledData.Load(reader);                    
+                    FilledData.Load(reader);
                 }
 
             }
@@ -97,7 +99,7 @@ namespace Fulcrum_Data_Testing_Tool
         public static DataTable GetMappingsWithValues(string InterfaceName, string MessageID)
         {
             DataTable FilledData = new DataTable();
-            
+
             using (SqlConnection con = new SqlConnection(AppConnection.AppConnectStringFulcrum()))
             {
                 using (SqlCommand cmd = new SqlCommand("select IF_TEXT, IF_DATA_MAPPING from dbo.IF_TEXT_MAPPING where IF_name = '" + InterfaceName + "'", con))
@@ -118,7 +120,7 @@ namespace Fulcrum_Data_Testing_Tool
                     string query = FilledData.Rows[i]["IF_DATA_MAPPING"].ToString();
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        
+
                         FilledData.Rows[i]["CSDP_Data"] = cmd.ExecuteScalar();
                     }
                 }
@@ -141,13 +143,13 @@ namespace Fulcrum_Data_Testing_Tool
                     object reader = cmd.ExecuteScalar();
                     if (object.ReferenceEquals(reader, null) == false)
                     {
-                        QueryResult = reader.ToString();                        
+                        QueryResult = reader.ToString();
                     }
                     else
                     {
                         QueryResult = string.Empty;
                     }
-                    
+
                     //QueryResult.Load(reader);
                 }
 
@@ -204,24 +206,24 @@ namespace Fulcrum_Data_Testing_Tool
                 //string code = string.Empty;//MappedText = MappedText.Split('@')[1];
                 //if (Mappedcode.IndexOf('@') >= 0)
                 //{
-                    //code = Mappedcode.Substring(Mappedcode.IndexOf('@'));
-                    //int lastIndex = code.LastIndexOf('@');
-                    //code = code.Substring(0);
+                //code = Mappedcode.Substring(Mappedcode.IndexOf('@'));
+                //int lastIndex = code.LastIndexOf('@');
+                //code = code.Substring(0);
                 collection.Add(Mappedcode.StartsWith("@").ToString(), MappedText.Replace("@", "").ToString());
-               
+
             }
-            return ls;               
+            return ls;
         }
 
         public static void CheckMessageIDExist(string MessageID)
         {
-            string Result  = null;
+            string Result = null;
             using (SqlConnection con = new SqlConnection(AppConnection.AppConnectStringFulcrum()))
             {
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand("DELETE FROM DBO.FULCRUM_XML_DATA WHERE MESSAGEID = '" + MessageID + "'", con))
                 {
-                    cmd.ExecuteNonQuery();                    
+                    cmd.ExecuteNonQuery();
                 }
             }
             //return true;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Xml;
+using System.IO;
 
 namespace Fulcrum_Data_Testing_Tool
 {
@@ -17,6 +18,18 @@ namespace Fulcrum_Data_Testing_Tool
             dsXml.ReadXml(XML_File_Path);
             
             return dsXml;
+        }
+
+        public static bool FileValidation(string FileName)
+        {
+            bool Result;
+            if (FileName == String.Empty){
+                Result = false;
+            }
+            else{
+                Result = true;
+            }
+            return Result; 
         }
 
         private static void RemoveRelationalFields(DataSet dsXml)
@@ -100,23 +113,7 @@ namespace Fulcrum_Data_Testing_Tool
         public static string InferfaceName(string XML_File_Path)
         {
             /* This method is pick the InterfaceName from given file name*/
-            string InterFaceName = ""; 
-            if (XML_File_Path.Contains("PrimarySalesInvoice"))
-            {
-                InterFaceName = "PrimarySalesInvoice";                
-            }
-            else if (XML_File_Path.Contains("ProductHierarchy"))
-            {
-                InterFaceName = "ProductHierarchy";              
-            }
-            else if (XML_File_Path.Contains("ProductMaster"))
-            {
-                InterFaceName = "ProductMaster";
-            }
-            else if (XML_File_Path.Contains("SecondaryPrice"))
-            {
-                InterFaceName = "SecondaryPrice";
-            }
+            string InterFaceName = Path.GetFileName(XML_File_Path).Split('_')[1]; 
             return InterFaceName; 
         }
 
@@ -135,12 +132,10 @@ namespace Fulcrum_Data_Testing_Tool
                     string query = XMLOperation.TransformQuery(r[0]["IF_DATA_MAPPING"].ToString(), xDoc, File);
                     //data = r[0]["IF_DATA_MAPPING"].ToString();
 
-
                     try
                     {
                         data = DBQuery.ExecuteQuery(query);
                         row["CSDP_Data"] = data;
-
                     }
                     catch (Exception)
                     {

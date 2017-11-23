@@ -60,8 +60,6 @@
             this.txtb_FilePath.Name = "txtb_FilePath";
             this.txtb_FilePath.Size = new System.Drawing.Size(671, 20);
             this.txtb_FilePath.TabIndex = 1;
-            this.txtb_FilePath.Text = "C:\\VS_Workgroup\\Valid Payloads - UGL_NDB\\Inbound_ProductMaster_20170401165903_cfb" +
-                "9fa086c6c452996d6eeb69fc5c22a.xml";
             // 
             // label1
             // 
@@ -74,7 +72,7 @@
             // 
             // btn_Browse
             // 
-            this.btn_Browse.Location = new System.Drawing.Point(958, 14);
+            this.btn_Browse.Location = new System.Drawing.Point(758, 12);
             this.btn_Browse.Name = "btn_Browse";
             this.btn_Browse.Size = new System.Drawing.Size(101, 23);
             this.btn_Browse.TabIndex = 3;
@@ -107,13 +105,13 @@
             // 
             // btn_Validate
             // 
-            this.btn_Validate.Location = new System.Drawing.Point(861, 72);
+            this.btn_Validate.Location = new System.Drawing.Point(865, 12);
             this.btn_Validate.Name = "btn_Validate";
-            this.btn_Validate.Size = new System.Drawing.Size(75, 23);
+            this.btn_Validate.Size = new System.Drawing.Size(102, 23);
             this.btn_Validate.TabIndex = 8;
             this.btn_Validate.Text = "Validate";
             this.btn_Validate.UseVisualStyleBackColor = true;
-            this.btn_Validate.Click += new System.EventHandler(this.button2_Click);
+            this.btn_Validate.Click += new System.EventHandler(this.btn_Validate_Click);
             // 
             // label_MessageID
             // 
@@ -189,6 +187,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
